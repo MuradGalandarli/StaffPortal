@@ -1,0 +1,51 @@
+# Visual Studio cache files
+.vs/
+*.v11.suo
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build results
+bin/
+obj/
+
+# ASP.NET Core generated files
+appsettings.Development.json
+appsettings.Local.json
+
+# IIS Express
+.vscode/
+.idea/
+*.vspscc
+
+# User-specific files
+*.user
+*.userprefs
+*.rsuser
+
+# Logs
+*.log
+
+# NuGet packages
+*.nupkg
+packages/
+*.snupkg
+
+# Backup files
+*.bak
+*.backup
+
+# Publish folder
+publish/
+wwwroot/lib/
+
+# Rider / JetBrains
+.idea/
+*.iml
+
+# macOS files
+.DS_Store
+
+# Windows thumbnail cache
+Thumbs.db
