@@ -8,7 +8,7 @@ namespace StaffPortal.Infrastructure.Service
 {
     public class EmployeeFileService : IEmployeeFileService
     {
-        public async Task<bool> WriteEmployeeToFile(EmployeeDto employee, string path, string fileName)
+        public async Task<bool> WriteEmployeeToFile(EmployeeRequestDto employee, string path, string fileName)
         {
             try { 
            

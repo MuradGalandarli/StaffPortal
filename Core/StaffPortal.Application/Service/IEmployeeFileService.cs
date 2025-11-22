@@ -5,6 +5,6 @@ namespace StaffPortal.Application.Service
 {
     public interface IEmployeeFileService
     {
-        public Task<bool> WriteEmployeeToFile(EmployeeDto employee, string path,string fileName);
+        public Task<bool> WriteEmployeeToFile(EmployeeRequestDto employee, string path,string fileName);
     }
 }

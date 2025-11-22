@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StaffPortal.Application.Features.Command.Employee.AddEmployee;
 using StaffPortal.Application.Features.Query.Employee.GetAllEmployeesForExport;
+using StaffPortal.Application.Features.Query.GetByIdEmployee;
 
 namespace StaffPortal.Api.Controllers
 {
@@ -28,5 +29,13 @@ namespace StaffPortal.Api.Controllers
             AddEmployeeCommandResponse addEmployeeCommandResponse = await _mediator.Send(addEmployeeCommandRequest);
             return Ok(addEmployeeCommandResponse);
         }
+        [HttpGet("get-by-id-employee")]
+        public async Task<IActionResult> GetByIdEmployee([FromQuery] int Id)
+        {
+            GetByIdEmployeeQueryRequest getByIdEmployeeQueryRequest = new() { Id = Id };
+            GetByIdEmployeeQueryResponse getByIdEmployeeQueryResponse = await _mediator.Send(getByIdEmployeeQueryRequest);
+            return Ok(getByIdEmployeeQueryResponse);
+        }
+
     }
 }

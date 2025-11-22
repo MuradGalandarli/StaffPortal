@@ -1,11 +1,11 @@
 ﻿using Microsoft.Extensions.Options;
 using StaffPortal.Application.Configuration;
 using StaffPortal.Application.Dtos;
+using StaffPortal.Application.Exceptions;
 using StaffPortal.Application.Repositories.Employee;
 using StaffPortal.Application.Service;
 using StaffPortal.Domain.Entities;
-using StaffPortal.Persistence.Repositories.Employee;
-using System.Numerics;
+
 
 namespace StaffPortal.Persistence.Service
 {
@@ -25,7 +25,7 @@ namespace StaffPortal.Persistence.Service
             _employeeWriteRepository = employeeWriteRepository;
         }
 
-        public async Task<bool> AddEmployeeAsync(EmployeeDto employee)
+        public async Task<bool> AddEmployeeAsync(EmployeeRequestDto employee)
         {
             string fileName = $"Employee_{Guid.NewGuid()}.txt";
             string filePath = $"{_fileURL.EmployeeUploadPath}/{fileName}";
@@ -60,6 +60,25 @@ namespace StaffPortal.Persistence.Service
            int totalCount = employees.Count();
             return (employees, totalCount);
         }
+
+        public async Task<EmployeeResponseDto> GetByIdEmployee(int id)
+        {
+            Employee employee = await  _employeeReadRepository.GetByIdAsync(id);
+            if(employee == null)
+                throw new NotFoundException($"Employee with id {id} not found");
+            return new()
+            {
+                Department = employee.Department,
+                Email = employee.Email, 
+                EmployeeId = employee.EmployeeId,
+                FullName = employee.FullName,
+                HireDate = employee.HireDate,
+                Phone = employee.Phone,
+                Position = employee.Position,
+                Salary = employee.Salary
+            };
+        }
+
         private async Task<byte[]> ReadFileAsBytesAsync(string path)
         {
             byte[] fileData = await File.ReadAllBytesAsync(path);

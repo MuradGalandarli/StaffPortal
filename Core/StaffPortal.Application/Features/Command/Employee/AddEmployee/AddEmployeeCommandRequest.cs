@@ -5,6 +5,6 @@ namespace StaffPortal.Application.Features.Command.Employee.AddEmployee
 {
     public class AddEmployeeCommandRequest:IRequest<AddEmployeeCommandResponse>
     {
-        public EmployeeDto employee { get; set; }
+        public EmployeeRequestDto employee { get; set; }
     }
 }

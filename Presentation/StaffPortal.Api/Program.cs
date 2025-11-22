@@ -2,6 +2,7 @@ using StaffPortal.Persistence;
 using StaffPortal.Infrastructure;
 using StaffPortal.Application;
 using StaffPortal.Application.Configuration;
+using StaffPortal.Api.Middlewares;
 
 namespace StaffPortal.Api
 {
@@ -32,6 +33,7 @@ namespace StaffPortal.Api
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+            app.UseMiddleware<ExceptionMiddleware>();
 
             app.UseHttpsRedirection();
 

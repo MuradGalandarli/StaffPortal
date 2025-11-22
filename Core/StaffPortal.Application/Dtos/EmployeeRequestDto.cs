@@ -2,9 +2,8 @@
 
 namespace StaffPortal.Application.Dtos
 {
-    public class EmployeeDto
+    public class EmployeeRequestDto
     {
-        //public int EmployeeId { get; set; }
         public string FullName { get; set; } = null!;
 
         public string Position { get; set; } = null!;
@@ -19,11 +18,7 @@ namespace StaffPortal.Application.Dtos
 
         public decimal? Salary { get; set; }
 
-        //public byte[]? FileBlob { get; set; }
-
-        //public string? FilePat    h { get; set; }
-
-        //public DateTime CreatedAt { get; set; }
+       
     }
 
 }
