@@ -4,6 +4,7 @@ using StaffPortal.Application;
 using System.Runtime;
 using StaffPortal.Application.Configuration;
 using StraffPortal.UI.Middlewares;
+using Serilog;
 
 namespace StraffPortal.UI
 {
@@ -21,6 +22,11 @@ namespace StraffPortal.UI
             builder.Services.AddApplicationService();
             builder.Services.Configure<FileURL>(builder.Configuration.GetSection("FileURL"));
             var app = builder.Build();
+            Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration)
+    .CreateLogger();
+
+            builder.Host.UseSerilog();
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())

@@ -22,7 +22,7 @@ namespace StaffPortal.Api.Middlewares
         {
             try
             {
-                _logger.LogWarning("Test");
+                
                 await _next(context);
             }
             catch (Exception ex)

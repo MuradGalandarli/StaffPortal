@@ -17,14 +17,15 @@ namespace StaffPortal.Infrastructure.Service
                 return false;
         }
 
-        public async Task<bool> WriteEmployeeToFile(EmployeeRequestDto employee, string path, string fileName)
+        public async Task<bool> WriteEmployeeToFile(EmployeeRequestDto employee, string filePath)
         {
-            try { 
+            try {
+                string[] path = filePath.Split('/');    
            
-            if (!Directory.Exists(path))
-                Directory.CreateDirectory(path);
+            if (!Directory.Exists(path[0]))
+                Directory.CreateDirectory(path[0]);
 
-            string fullPath = Path.Combine(path, fileName);
+            //string fullPath = Path.Combine(path, fileName);
 
             string content = $"FullName: {employee.FullName}\n" +
                              $"Position: {employee.Position}\n" +
@@ -35,7 +36,7 @@ namespace StaffPortal.Infrastructure.Service
                              $"CreatedAt: {DateTime.Now}"+
                              $"HireDate: {employee.HireDate}";
 
-            await File.WriteAllTextAsync(fullPath, content);
+            await File.WriteAllTextAsync(filePath, content);
 
                 return true;
                 }

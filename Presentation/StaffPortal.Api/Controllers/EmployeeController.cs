@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StaffPortal.Application.Features.Command.Employee.AddEmployee;
 using StaffPortal.Application.Features.Command.Employee.DeleteEmployeeById;
+using StaffPortal.Application.Features.Command.UpdateEmployee;
 using StaffPortal.Application.Features.Query.Employee.GetAllEmployeesForExport;
 using StaffPortal.Application.Features.Query.GetByIdEmployee;
 
@@ -43,6 +44,12 @@ namespace StaffPortal.Api.Controllers
             DeleteEmployeeByIdQueryRequest deleteByIdEmployeeQueryRequest = new() { Id = id };
             DeleteEmployeeByIdQueryResponse deleteEmployeeByIdQueryResponse = await _mediator.Send(deleteByIdEmployeeQueryRequest);
             return Ok(deleteEmployeeByIdQueryResponse);
+        }
+        [HttpPut("update-employee")]
+        public async Task<IActionResult> UpdateEmployee([FromBody] UpdateEmployeeCommandRequest updateEmployeeCommandRequest)
+        {
+            UpdateEmployeeCommandResponse updateEmployeeCommandResponse = await _mediator.Send(updateEmployeeCommandRequest);
+            return Ok(updateEmployeeCommandResponse);   
         }
 
 

@@ -3,6 +3,7 @@ using StaffPortal.Infrastructure;
 using StaffPortal.Application;
 using StaffPortal.Application.Configuration;
 using StaffPortal.Api.Middlewares;
+using Serilog;
 
 namespace StaffPortal.Api
 {
@@ -17,6 +18,13 @@ namespace StaffPortal.Api
             builder.Services.AddInfrastructureService();
             builder.Services.AddApplicationService();
             builder.Services.Configure<FileURL>(builder.Configuration.GetSection("FileURL"));
+
+            Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration)
+    .CreateLogger();
+
+            builder.Host.UseSerilog();
+
 
             // Add services to the container.
 

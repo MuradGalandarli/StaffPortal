@@ -10,5 +10,6 @@ namespace StaffPortal.Application.Service
         public Task<bool> AddEmployeeAsync(EmployeeRequestDto employee);
         public Task<EmployeeResponseDto> GetByIdEmployeeAsync(int id);
         public Task<bool> DeleteEmployeeByIdAsync(int id);
+        public Task<bool> UpdateEmployeeAsync(EmployeeRequestDto employee);
     }
 }

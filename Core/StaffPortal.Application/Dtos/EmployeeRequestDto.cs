@@ -4,6 +4,7 @@ namespace StaffPortal.Application.Dtos
 {
     public class EmployeeRequestDto
     {
+        public int EmployeeId { get; set; }
         public string FullName { get; set; } = null!;
 
         public string Position { get; set; } = null!;
