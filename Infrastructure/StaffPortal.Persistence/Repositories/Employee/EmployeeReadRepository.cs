@@ -1,12 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
+using StaffPortal.Application.Repositories.Employee;
+using StaffPortal.Domain.Entities;
 
 namespace StaffPortal.Persistence.Repositories.Employee
 {
-    internal class EmployeeReadRepository
+    public class EmployeeReadRepository : ReadRepository<Domain.Entities.Employee>, IEmployeeReadRepository
     {
+        private readonly AppDbContext _appDbContext;
+        public EmployeeReadRepository(AppDbContext context) : base(context)
+        {
+            _appDbContext = context;
+        }
+
+        public async Task<List<VwEmployeesForExport>> GetAllEmployeesForExport()
+        {
+           return await _appDbContext.VwEmployeesForExports.AsNoTracking().ToListAsync();
+        }
     }
 }

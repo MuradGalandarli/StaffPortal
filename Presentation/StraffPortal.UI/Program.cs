@@ -1,3 +1,7 @@
+using StaffPortal.Persistence;
+using StaffPortal.Infrastructure;
+using StaffPortal.Application;
+
 namespace StraffPortal.UI
 {
     public class Program
@@ -8,6 +12,10 @@ namespace StraffPortal.UI
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddPersistenceService();
+            builder.Services.AddInfrastructureService();
+            builder.Services.AddApplicationService();
 
             var app = builder.Build();
 

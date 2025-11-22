@@ -1,6 +1,4 @@
 ﻿
-
-using StaffPortal.Application.Repositories;
 using StaffPortal.Application.Repositories.Employee;
 
 namespace StaffPortal.Persistence.Repositories.Employee

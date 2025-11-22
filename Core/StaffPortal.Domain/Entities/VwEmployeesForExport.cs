@@ -21,3 +21,4 @@ public partial class VwEmployeesForExport
 
     public decimal? Salary { get; set; }
 }
+    

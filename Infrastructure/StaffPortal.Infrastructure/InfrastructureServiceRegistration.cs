@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using Microsoft.Extensions.DependencyInjection;
 
 namespace StaffPortal.Infrastructure
 {
-    internal class InfrastructureServiceRegistration
+    public static class InfrastructureServiceRegistration
     {
+        public static void AddInfrastructureService(this IServiceCollection services)
+        {
+
+        }
     }
 }

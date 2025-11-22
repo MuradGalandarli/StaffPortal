@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
+using Microsoft.Extensions.DependencyInjection;
+
 
 namespace StaffPortal.Application
 {
-    internal class ApplicationServiceRegistration
+    public static class ApplicationServiceRegistration
     {
+       public static void AddApplicationService(this IServiceCollection services)
+        {
+            services.AddMediatR(typeof(ApplicationServiceRegistration));
+           
+        }
     }
 }

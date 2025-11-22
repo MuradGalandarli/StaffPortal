@@ -1,12 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Extensions.DependencyInjection;
+using StaffPortal.Application.Repositories.Employee;
+using StaffPortal.Application.Service;
+using StaffPortal.Persistence.Repositories.Employee;
+using StaffPortal.Persistence.Service;
 
 namespace StaffPortal.Persistence
 {
-    internal class PersistenceServiceRegistration
+    public static class PersistenceServiceRegistration
     {
-    }
+        public static void AddPersistenceService(this IServiceCollection services)
+        {
+            services.AddSingleton<AppDbContext>();
+            services.AddScoped<IEmployeeWriteRepository, EmployeeWriteRepository>();
+            services.AddScoped<IEmployeeReadRepository, EmployeeReadRepository>();
+            services.AddScoped<IEmployeeService, EmployeeService>();
+        }
+    }   
 }

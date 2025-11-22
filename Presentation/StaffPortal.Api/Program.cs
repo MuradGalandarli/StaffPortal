@@ -1,3 +1,6 @@
+using StaffPortal.Persistence;
+using StaffPortal.Infrastructure;
+using StaffPortal.Application;  
 
 namespace StaffPortal.Api
 {
@@ -6,6 +9,11 @@ namespace StaffPortal.Api
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+
+            builder.Services.AddPersistenceService();
+            builder.Services.AddInfrastructureService();
+            builder.Services.AddApplicationService();
 
             // Add services to the container.
 
