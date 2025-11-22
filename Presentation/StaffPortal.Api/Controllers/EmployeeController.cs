@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StaffPortal.Application.Features.Command.Employee.AddEmployee;
+using StaffPortal.Application.Features.Command.Employee.DeleteEmployeeById;
 using StaffPortal.Application.Features.Query.Employee.GetAllEmployeesForExport;
 using StaffPortal.Application.Features.Query.GetByIdEmployee;
 
@@ -36,6 +37,14 @@ namespace StaffPortal.Api.Controllers
             GetByIdEmployeeQueryResponse getByIdEmployeeQueryResponse = await _mediator.Send(getByIdEmployeeQueryRequest);
             return Ok(getByIdEmployeeQueryResponse);
         }
+        [HttpDelete("get-delete-by-id")]
+        public async Task<IActionResult> GetDeleteById([FromQuery]int id)
+        {
+            DeleteEmployeeByIdQueryRequest deleteByIdEmployeeQueryRequest = new() { Id = id };
+            DeleteEmployeeByIdQueryResponse deleteEmployeeByIdQueryResponse = await _mediator.Send(deleteByIdEmployeeQueryRequest);
+            return Ok(deleteEmployeeByIdQueryResponse);
+        }
+
 
     }
 }

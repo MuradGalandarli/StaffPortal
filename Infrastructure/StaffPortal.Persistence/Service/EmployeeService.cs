@@ -9,8 +9,8 @@ using StaffPortal.Domain.Entities;
 
 namespace StaffPortal.Persistence.Service
 {
-    
-    public class EmployeeService: IEmployeeService
+
+    public class EmployeeService : IEmployeeService
     {
         private readonly IEmployeeReadRepository _employeeReadRepository;
         private readonly IEmployeeWriteRepository _employeeWriteRepository;
@@ -32,7 +32,7 @@ namespace StaffPortal.Persistence.Service
             bool status = await _employeeFileService.WriteEmployeeToFile(employee, _fileURL.EmployeeUploadPath, fileName);
             if (status)
             {
-              bool _status = await _employeeWriteRepository.AddAsync(new()
+                bool _status = await _employeeWriteRepository.AddAsync(new()
                 {
                     CreatedAt = DateTime.UtcNow,
                     Department = employee.Department,
@@ -48,28 +48,46 @@ namespace StaffPortal.Persistence.Service
                 if (_status)
                 {
                     await _employeeWriteRepository.SaveAsync();
-                return _status;
+                    return _status;
                 }
             }
-            return false;   
+            return false;
         }
 
         public async Task<(List<VwEmployeesForExport> Employees, int TotalCOunt)> GetAllEmployeesForExport()
         {
-           List<VwEmployeesForExport> employees = await _employeeReadRepository.GetAllEmployeesForExport();
-           int totalCount = employees.Count();
+            List<VwEmployeesForExport> employees = await _employeeReadRepository.GetAllEmployeesForExport();
+            int totalCount = employees.Count();
             return (employees, totalCount);
         }
 
-        public async Task<EmployeeResponseDto> GetByIdEmployee(int id)
+        public async Task<bool> DeleteEmployeeByIdAsync(int id)
         {
-            Employee employee = await  _employeeReadRepository.GetByIdAsync(id);
-            if(employee == null)
+            Employee employee = await _employeeReadRepository.GetByIdAsync(id);
+            if (employee != null)
+            {
+                bool isDeleted = _employeeFileService.FileDelete(employee.FilePath);
+                if (!isDeleted)
+                    throw new NotFoundException($"Employee with path {employee.FilePath} not found");
+                bool status = _employeeWriteRepository.Delete(id);
+                if (!status)
+                    throw new NotFoundException($"Employee with id {id} not found");
+                else await _employeeWriteRepository.SaveAsync();
+                return status;
+            }
+            return false;
+
+            }
+
+        public async Task<EmployeeResponseDto> GetByIdEmployeeAsync(int id)
+        {
+            Employee employee = await _employeeReadRepository.GetByIdAsync(id);
+            if (employee == null)
                 throw new NotFoundException($"Employee with id {id} not found");
             return new()
             {
                 Department = employee.Department,
-                Email = employee.Email, 
+                Email = employee.Email,
                 EmployeeId = employee.EmployeeId,
                 FullName = employee.FullName,
                 HireDate = employee.HireDate,

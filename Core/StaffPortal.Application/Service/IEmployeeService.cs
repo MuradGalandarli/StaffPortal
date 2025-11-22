@@ -1,6 +1,4 @@
 ﻿
-
-using Microsoft.EntityFrameworkCore.Query.Internal;
 using StaffPortal.Application.Dtos;
 using StaffPortal.Domain.Entities;
 
@@ -10,6 +8,7 @@ namespace StaffPortal.Application.Service
     {
         public Task<(List<VwEmployeesForExport> Employees,int TotalCOunt)> GetAllEmployeesForExport();
         public Task<bool> AddEmployeeAsync(EmployeeRequestDto employee);
-        public Task<EmployeeResponseDto> GetByIdEmployee(int id);
+        public Task<EmployeeResponseDto> GetByIdEmployeeAsync(int id);
+        public Task<bool> DeleteEmployeeByIdAsync(int id);
     }
 }

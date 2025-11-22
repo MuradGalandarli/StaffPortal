@@ -1,13 +1,22 @@
 ﻿
-
 using StaffPortal.Application.Dtos;
 using StaffPortal.Application.Service;
-using StaffPortal.Domain.Entities;
 
 namespace StaffPortal.Infrastructure.Service
 {
     public class EmployeeFileService : IEmployeeFileService
     {
+        public bool FileDelete(string path)
+        {
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+                return true;
+            }
+            else
+                return false;
+        }
+
         public async Task<bool> WriteEmployeeToFile(EmployeeRequestDto employee, string path, string fileName)
         {
             try { 
@@ -36,5 +45,7 @@ namespace StaffPortal.Infrastructure.Service
                 return false;
             }
         }
-}
+
+        
+    }
 }

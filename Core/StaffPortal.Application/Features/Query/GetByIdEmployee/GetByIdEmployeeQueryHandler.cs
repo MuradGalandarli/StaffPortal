@@ -15,7 +15,7 @@ namespace StaffPortal.Application.Features.Query.GetByIdEmployee
 
         public async Task<GetByIdEmployeeQueryResponse> Handle(GetByIdEmployeeQueryRequest request, CancellationToken cancellationToken)
         {
-            EmployeeResponseDto employeeResponseDto = await _employeeService.GetByIdEmployee(request.Id);
+            EmployeeResponseDto employeeResponseDto = await _employeeService.GetByIdEmployeeAsync(request.Id);
             return new()
             {
                 employee = employeeResponseDto,
