@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using StaffPortal.Domain.Entities;
 
 namespace StaffPortal.Persistence;
@@ -28,6 +26,7 @@ public partial class AppDbContext : DbContext
     {
         modelBuilder.Entity<Employee>(entity =>
         {
+
             entity.HasKey(e => e.EmployeeId).HasName("PK__Employee__7AD04FF106FF3F09");
 
             entity.HasIndex(e => e.FullName, "IX_Employees_FullName");

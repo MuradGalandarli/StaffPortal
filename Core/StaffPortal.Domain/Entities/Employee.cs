@@ -3,10 +3,8 @@ using System.Collections.Generic;
 
 namespace StaffPortal.Domain.Entities;
 
-public partial class Employee
+public partial class Employee:BaseEntity
 {
-    public int EmployeeId { get; set; }
-
     public string FullName { get; set; } = null!;
 
     public string Position { get; set; } = null!;
