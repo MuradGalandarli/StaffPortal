@@ -1,6 +1,7 @@
 using StaffPortal.Persistence;
 using StaffPortal.Infrastructure;
-using StaffPortal.Application;  
+using StaffPortal.Application;
+using StaffPortal.Application.Configuration;
 
 namespace StaffPortal.Api
 {
@@ -14,6 +15,7 @@ namespace StaffPortal.Api
             builder.Services.AddPersistenceService();
             builder.Services.AddInfrastructureService();
             builder.Services.AddApplicationService();
+            builder.Services.Configure<FileURL>(builder.Configuration.GetSection("FileURL"));
 
             // Add services to the container.
 

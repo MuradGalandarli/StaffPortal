@@ -4,7 +4,7 @@ using MediatR;
 using StaffPortal.Application.Service;
 using StaffPortal.Domain.Entities;
 
-namespace StaffPortal.Application.Features.Query.GetAllEmployeesForExport
+namespace StaffPortal.Application.Features.Query.Employee.GetAllEmployeesForExport
 {
     public class GetAllEmployeesForExportQueryHandler : IRequestHandler<GetAllEmployeesForExportQueryRequest, GetAllEmployeesForExportQueryResponse>
     {
@@ -17,7 +17,7 @@ namespace StaffPortal.Application.Features.Query.GetAllEmployeesForExport
 
         public async Task<GetAllEmployeesForExportQueryResponse> Handle(GetAllEmployeesForExportQueryRequest request, CancellationToken cancellationToken)
         {
-           (List<VwEmployeesForExport>,int) employess = await _employeeService.GetAllEmployeesForExport();
+            (List<VwEmployeesForExport>, int) employess = await _employeeService.GetAllEmployeesForExport();
             return new()
             {
                 Employee = employess.Item1,

@@ -1,7 +1,7 @@
 ﻿using StaffPortal.Application.Dtos;
 using StaffPortal.Domain.Entities;
 
-namespace StaffPortal.Application.Features.Query.GetAllEmployeesForExport
+namespace StaffPortal.Application.Features.Query.Employee.GetAllEmployeesForExport
 {
     public class GetAllEmployeesForExportQueryResponse
     {

@@ -1,6 +1,8 @@
 using StaffPortal.Persistence;
 using StaffPortal.Infrastructure;
 using StaffPortal.Application;
+using System.Runtime;
+using StaffPortal.Application.Configuration;
 
 namespace StraffPortal.UI
 {
@@ -16,7 +18,7 @@ namespace StraffPortal.UI
             builder.Services.AddPersistenceService();
             builder.Services.AddInfrastructureService();
             builder.Services.AddApplicationService();
-
+            builder.Services.Configure<FileURL>(builder.Configuration.GetSection("FileURL"));
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

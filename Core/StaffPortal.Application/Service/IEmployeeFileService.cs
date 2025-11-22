@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using StaffPortal.Application.Dtos;
 
 namespace StaffPortal.Application.Service
 {
-    internal interface IEmployeeFileService
+    public interface IEmployeeFileService
     {
+        public Task<bool> WriteEmployeeToFile(EmployeeDto employee, string path,string fileName);
     }
 }

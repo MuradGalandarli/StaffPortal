@@ -1,7 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using StaffPortal.Application.Features.Query.GetAllEmployeesForExport;
+using StaffPortal.Application.Features.Command.Employee.AddEmployee;
+using StaffPortal.Application.Features.Query.Employee.GetAllEmployeesForExport;
 
 namespace StaffPortal.Api.Controllers
 {
@@ -20,6 +21,12 @@ namespace StaffPortal.Api.Controllers
         {
             GetAllEmployeesForExportQueryResponse getAllEmployeesForExportQueryResponse = await _mediator.Send(new GetAllEmployeesForExportQueryRequest());
             return Ok(getAllEmployeesForExportQueryResponse);
+        }
+        [HttpPost("add-employee")]
+        public async Task<IActionResult> AddEmployee(AddEmployeeCommandRequest addEmployeeCommandRequest)
+        {
+            AddEmployeeCommandResponse addEmployeeCommandResponse = await _mediator.Send(addEmployeeCommandRequest);
+            return Ok(addEmployeeCommandResponse);
         }
     }
 }

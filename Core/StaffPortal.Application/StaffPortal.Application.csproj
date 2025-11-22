@@ -16,8 +16,4 @@
     <ProjectReference Include="..\StaffPortal.Domain\StaffPortal.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Features\Command\" />
-  </ItemGroup>
-
 </Project>
