@@ -23,20 +23,21 @@ namespace StraffPortal.UI
             builder.Services.AddApplicationService();
             builder.Services.Configure<FileURL>(builder.Configuration.GetSection("FileURL"));
             QuestPDF.Settings.License = LicenseType.Community;
+
+            builder.Host.UseSerilog();
             var app = builder.Build();
             Log.Logger = new LoggerConfiguration()
     .ReadFrom.Configuration(builder.Configuration)
     .CreateLogger();
 
-            builder.Host.UseSerilog();
-
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Employee/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            
             app.UseMiddleware<ExceptionMiddleware>();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
@@ -44,10 +45,11 @@ namespace StraffPortal.UI
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseSerilogRequestLogging();
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Employee}/{action=Index}/{id?}");
 
             app.Run();
         }

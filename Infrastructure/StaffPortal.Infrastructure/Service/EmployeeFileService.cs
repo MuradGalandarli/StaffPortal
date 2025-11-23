@@ -54,10 +54,6 @@ namespace StaffPortal.Infrastructure.Service
         {
             try
             {
-                // Fayl adı üçün qanunsuz simvolları əvəz et
-                //string safeFilePath = filePath.Replace("/", "_");
-
-                // Qovluğu çıxart
                 string? directory = Path.GetDirectoryName(filePath);
                 if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
                     Directory.CreateDirectory(directory);
