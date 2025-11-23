@@ -14,7 +14,7 @@ namespace StaffPortal.Persistence
             services.AddScoped<IEmployeeWriteRepository, EmployeeWriteRepository>();
             services.AddScoped<IEmployeeReadRepository, EmployeeReadRepository>();
             services.AddScoped<IEmployeeService, EmployeeService>();
-           
+            
         }
     }   
 }

@@ -10,6 +10,8 @@ namespace StaffPortal.Infrastructure
         public static void AddInfrastructureService(this IServiceCollection services)
         {
             services.AddScoped<IEmployeeFileService, EmployeeFileService>();
+            services.AddScoped<IDocumentExport,PdfDocumentExport>();
+
         }
     }
 }

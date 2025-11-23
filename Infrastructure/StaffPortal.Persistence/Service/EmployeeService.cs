@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using StaffPortal.Application.Configuration;
 using StaffPortal.Application.Dtos;
@@ -36,8 +37,6 @@ namespace StaffPortal.Persistence.Service
 
         public async Task<bool> AddEmployeeAsync(EmployeeRequestDto employee)
         {
-            //string fileName = $"Employee_{Guid.NewGuid()}.txt";
-            //string filePath = $"{_fileURL.EmployeeUploadPath}/{fileName}";
             string filePath = GenerateFilePath();
             bool status = await _employeeFileService.WriteEmployeeToFile(employee, filePath);
             if (status)
@@ -64,12 +63,18 @@ namespace StaffPortal.Persistence.Service
             return false;
         }
 
-        public async Task<(List<VwEmployeesForExport> Employees, int TotalCOunt)> GetAllEmployeesForExport()
+        public async Task<(List<VwEmployeesForExport> Employees, int TotalCount)> GetAllEmployeesForExport(string sort)
         {
-            //_logger.LogWarning("Test");
             List<VwEmployeesForExport> employees = await _employeeReadRepository.GetAllEmployeesForExport();
             int totalCount = employees.Count();
+
+            if (sort.ToLower() == "desc")
+            {
+              var desc =  employees.OrderByDescending(x => x.EmployeeId).ToList();
+                return (desc, totalCount);
+            }
             return (employees, totalCount);
+
         }
 
         public async Task<bool> DeleteEmployeeByIdAsync(int id)
@@ -87,9 +92,7 @@ namespace StaffPortal.Persistence.Service
                 return status;
             }
             return false;
-
         }
-
         public async Task<EmployeeResponseDto> GetByIdEmployeeAsync(int id)
         {
             Employee employee = await _employeeReadRepository.GetByIdAsync(id);
@@ -128,7 +131,6 @@ namespace StaffPortal.Persistence.Service
                     data.FilePath = filePath;
                     data.Department = employee.Department;
                     data.Email = employee.Email;
-                    data.EmployeeId = employee.EmployeeId;
                     data.FullName = employee.FullName;
                     data.HireDate = employee.HireDate;
                     data.Phone = employee.Phone;
@@ -141,5 +143,30 @@ namespace StaffPortal.Persistence.Service
             }
             return status;
         }
+        public async Task<(List<EmployeeResponseDto>, int totalCount)> SearchEmployeeAsync(string term, string sort)
+        {
+            List<Employee> employees = await _employeeReadRepository.SearchEmployeeAsync(term);
+            int employeeTotalCount = employees.Count();
+            var employeesDto = employees.Select(x => new EmployeeResponseDto
+            {
+                EmployeeId = x.EmployeeId,
+                Department = x.Department,
+                Email = x.Email,
+                FullName = x.FullName,
+                HireDate = x.HireDate,
+                Phone = x.Phone,
+                Position = x.Position,
+                Salary = x.Salary,
+            });
+
+            if (sort.ToLower() == "desc")
+            {
+                return (employeesDto.OrderByDescending(x => x.EmployeeId).ToList(), employeeTotalCount);
+            }
+            else
+                return (employeesDto.ToList(), employeeTotalCount);
+        }
+
+     
     }
 }

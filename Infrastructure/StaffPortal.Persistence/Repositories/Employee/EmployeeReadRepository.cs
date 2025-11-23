@@ -16,5 +16,12 @@ namespace StaffPortal.Persistence.Repositories.Employee
         {
            return await _appDbContext.VwEmployeesForExports.AsNoTracking().ToListAsync();
         }
+
+        public async Task<List<Domain.Entities.Employee>> SearchEmployeeAsync(string term)
+        {
+               return await _appDbContext.Employees
+                .FromSqlInterpolated($"EXEC sp_SearchEmployees @term={term}")
+                .ToListAsync();
+        }
     }
 }

@@ -1,6 +1,8 @@
 ﻿
 using StaffPortal.Application.Dtos;
 using StaffPortal.Application.Service;
+using StaffPortal.Domain.Entities;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace StaffPortal.Infrastructure.Service
 {
@@ -19,34 +21,60 @@ namespace StaffPortal.Infrastructure.Service
 
         public async Task<bool> WriteEmployeeToFile(EmployeeRequestDto employee, string filePath)
         {
-            try {
-                string[] path = filePath.Split('/');    
-           
-            if (!Directory.Exists(path[0]))
-                Directory.CreateDirectory(path[0]);
+            try
+            {
+                string[] path = filePath.Split('/');
 
-            //string fullPath = Path.Combine(path, fileName);
+                if (!Directory.Exists(path[0]))
+                    Directory.CreateDirectory(path[0]);
 
-            string content = $"FullName: {employee.FullName}\n" +
-                             $"Position: {employee.Position}\n" +
-                             $"Department: {employee.Department}\n" +
-                             $"Email: {employee.Email}\n" +
-                             $"Phone: {employee.Phone}\n" +
-                             $"Salary: {employee.Salary}\n" +
-                             $"CreatedAt: {DateTime.Now}"+
-                             $"HireDate: {employee.HireDate}";
+                //string fullPath = Path.Combine(path, fileName);
 
-            await File.WriteAllTextAsync(filePath, content);
+                string content = $"FullName: {employee.FullName}\n" +
+                                 $"Position: {employee.Position}\n" +
+                                 $"Department: {employee.Department}\n" +
+                                 $"Email: {employee.Email}\n" +
+                                 $"Phone: {employee.Phone}\n" +
+                                 $"Salary: {employee.Salary}\n" +
+                                 $"CreatedAt: {DateTime.Now}" +
+                                 $"HireDate: {employee.HireDate}";
+
+                await File.WriteAllTextAsync(filePath, content);
 
                 return true;
-                }
-             catch (Exception ex)
-    {
+            }
+            catch (Exception ex)
+            {
                 Console.WriteLine($"Fayla yazılmadı: {ex.Message}");
                 return false;
             }
         }
 
-        
+        public async Task<bool> WriteEmployeeToFileList(List<EmployeeRequestDto> employees, string filePath)
+        {
+            try
+            {
+                // Fayl adı üçün qanunsuz simvolları əvəz et
+                //string safeFilePath = filePath.Replace("/", "_");
+
+                // Qovluğu çıxart
+                string? directory = Path.GetDirectoryName(filePath);
+                if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
+                    Directory.CreateDirectory(directory);
+
+                var lines = employees.Select(e =>
+                    $"{e.EmployeeId} | {e.FullName} | {e.Position} | {e.Department} | {e.HireDate} | {e.Email} | {e.Phone} | {e.Salary}"
+                ).ToList();
+
+                await File.WriteAllLinesAsync(filePath, lines); // async yaz
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Fayla yazılmadı: {ex.Message}");
+                return false;
+            }
+        }
+
     }
 }

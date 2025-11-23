@@ -4,6 +4,6 @@ namespace StaffPortal.Application.Features.Query.Employee.GetAllEmployeesForExpo
 {
     public class GetAllEmployeesForExportQueryRequest : IRequest<GetAllEmployeesForExportQueryResponse>
     {
-
+        public string Sort { get; set; }
     }
 }

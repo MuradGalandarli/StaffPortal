@@ -5,6 +5,7 @@ using System.Runtime;
 using StaffPortal.Application.Configuration;
 using StraffPortal.UI.Middlewares;
 using Serilog;
+using QuestPDF.Infrastructure;
 
 namespace StraffPortal.UI
 {
@@ -21,6 +22,7 @@ namespace StraffPortal.UI
             builder.Services.AddInfrastructureService();
             builder.Services.AddApplicationService();
             builder.Services.Configure<FileURL>(builder.Configuration.GetSection("FileURL"));
+            QuestPDF.Settings.License = LicenseType.Community;
             var app = builder.Build();
             Log.Logger = new LoggerConfiguration()
     .ReadFrom.Configuration(builder.Configuration)

@@ -2,7 +2,7 @@
 using StaffPortal.Application.Dtos;
 using StaffPortal.Application.Service;
 
-namespace StaffPortal.Application.Features.Query.GetByIdEmployee
+namespace StaffPortal.Application.Features.Query.Employee.GetByIdEmployee
 {
     public class GetByIdEmployeeQueryHandler : IRequestHandler<GetByIdEmployeeQueryRequest, GetByIdEmployeeQueryResponse>
     {

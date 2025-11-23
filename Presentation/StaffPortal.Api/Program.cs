@@ -4,6 +4,7 @@ using StaffPortal.Application;
 using StaffPortal.Application.Configuration;
 using StaffPortal.Api.Middlewares;
 using Serilog;
+using QuestPDF.Infrastructure;
 
 namespace StaffPortal.Api
 {
@@ -18,7 +19,7 @@ namespace StaffPortal.Api
             builder.Services.AddInfrastructureService();
             builder.Services.AddApplicationService();
             builder.Services.Configure<FileURL>(builder.Configuration.GetSection("FileURL"));
-
+            QuestPDF.Settings.License = LicenseType.Community;
             Log.Logger = new LoggerConfiguration()
     .ReadFrom.Configuration(builder.Configuration)
     .CreateLogger();

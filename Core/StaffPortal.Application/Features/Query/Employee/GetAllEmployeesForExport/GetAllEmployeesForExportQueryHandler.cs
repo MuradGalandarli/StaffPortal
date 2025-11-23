@@ -17,7 +17,7 @@ namespace StaffPortal.Application.Features.Query.Employee.GetAllEmployeesForExpo
 
         public async Task<GetAllEmployeesForExportQueryResponse> Handle(GetAllEmployeesForExportQueryRequest request, CancellationToken cancellationToken)
         {
-            (List<VwEmployeesForExport>, int) employess = await _employeeService.GetAllEmployeesForExport();
+            (List<VwEmployeesForExport>, int) employess = await _employeeService.GetAllEmployeesForExport(request.Sort);
             return new()
             {
                 Employee = employess.Item1,
